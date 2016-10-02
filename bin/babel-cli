@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+/*
+  This is a hack to allow a bablerc file to be specified using the babel-cli
+*/
+
+const path = require('path');
+const commander = require("commander");
+commander.extends = path.resolve(__dirname, '../config/babelrc');
+require("babel-cli/lib/babel");
