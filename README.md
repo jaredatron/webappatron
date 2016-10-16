@@ -9,12 +9,17 @@ cd my-project
 npm init
 …
 npm install --save webappatron
-
+webappatron init
+git init
+git commit -m init
+webappatron start
+open http://localhost:3000
+```
 
 
 ### The Problem:
 
-Making single page react web apps using es2016 requires way too much setup
+Making single page react web apps using es2016 & React requires way too much setup
 
 
 This project aims to solve that problem with smart defaults that works for most apps. The hope is that we can provide unobtrusive ways to override these defaults when customization is needed.
