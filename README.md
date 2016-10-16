@@ -1,5 +1,16 @@
 # WebAppAtron
 
+## Usage
+
+
+```
+mkdir my-project
+cd my-project
+npm init
+…
+npm install --save webappatron
+
+
 
 ### The Problem:
 

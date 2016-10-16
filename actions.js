@@ -5,7 +5,7 @@ const rmdir = require('rmdir');
 const chalk = require('chalk')
 const { appRoot, appPath, relativeAppPath, modulePath } = require('./config/paths')
 
-const bin = modulePath('node_modules/.bin')
+const bin = relativeAppPath('node_modules/.bin')
 
 
 const init = () => {
