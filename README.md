@@ -1,4 +1,6 @@
-# WebAppAtron
+# webappatron
+
+an awesome react app setup
 
 ## Usage
 
