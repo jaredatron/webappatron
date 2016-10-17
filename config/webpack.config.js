@@ -6,11 +6,17 @@ const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const WebpackErrorNotification = require('webpack-error-notification');
+var OmitTildeWebpackPlugin = require('omit-tilde-webpack-plugin');
 
 const webpackErrorNotificationPlugin = process.env.NODE_ENV === 'development' ?
   new WebpackErrorNotification() :
   new webpack.DefinePlugin({})
 ;
+
+const omitTildeWebpackPlugin = new OmitTildeWebpackPlugin({
+  deprecate: false,
+  verbose: false,
+})
 
 const processDotEnvPlugin = new webpack.DefinePlugin({
   'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
@@ -114,6 +120,7 @@ module.exports = {
   },
   plugins: [
     webpackErrorNotificationPlugin,
+    omitTildeWebpackPlugin,
     new HtmlWebpackPlugin({
       inject: true,
       template: appPath('browser/index.html'),
