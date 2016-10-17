@@ -32,7 +32,7 @@ module.exports = {
   resolve: {
     alias: {
       lib: appPath('lib'),
-      react: require.resolve('react'),
+      react: path.dirname(require.resolve('react')),
       "react-dom": path.resolve(require.resolve('react'), '../lib/ReactDOM'),
     },
     root: [
