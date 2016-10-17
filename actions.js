@@ -161,11 +161,12 @@ const startWebServer = {
 }[process.env.NODE_ENV]
 
 const _runTests = (watch) => {
-  const args = [
-    modulePath('config/mocha-setup.js'),
-    '--recursive',
-    relativeAppPath('build/test')
-  ]
+  const setupFilePath = appPath('buid/test/setup.js')
+  const args = []
+  args.push(modulePath('config/mocha-setup.js'))
+  if (fs.existsSync(setupFilePath)) args.push(setupFilePath)
+  args.push('--recursive')
+  args.push(relativeAppPath('build/test'))
   if (watch) args.unshift('--watch')
   return spawn(bin+'/mocha', args, {stdio: 'inherit'})
 }
