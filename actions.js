@@ -80,7 +80,7 @@ const buildWebpack = builder('buildWebpack', (watch) => {
 
 
 const buildTest = builder('buildTest', (watch) => {
-  const cmd = [bin+'/babel', relativeAppPath('test'),  '--out-dir', relativeAppPath('build/test')]
+  const cmd = [modulePath('bin/babel-cli'), relativeAppPath('test'),  '--out-dir', relativeAppPath('build/test')]
   if (watch) cmd.push('--watch')
   return cmd
 })
