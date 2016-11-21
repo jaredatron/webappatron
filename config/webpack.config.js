@@ -38,8 +38,7 @@ module.exports = {
   resolve: {
     alias: {
       lib: appPath('lib'),
-      react: path.dirname(require.resolve('react')),
-      "react-dom": path.resolve(require.resolve('react'), '../lib/ReactDOM'),
+      // react: path.dirname(require.resolve('react')),
     },
     root: [
       appPath('server'),
@@ -138,10 +137,10 @@ module.exports = {
       }
     }),
     processDotEnvPlugin,
-    // This helps ensure the builds are consistent if source hasn't changed:
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    // Try to dedupe duplicated modules, if any:
-    new webpack.optimize.DedupePlugin(),
+    // // This helps ensure the builds are consistent if source hasn't changed:
+    // new webpack.optimize.OccurrenceOrderPlugin(),
+    // // Try to dedupe duplicated modules, if any:
+    // new webpack.optimize.DedupePlugin(),
     new ExtractTextPlugin('browser.css')
   ]
 };
