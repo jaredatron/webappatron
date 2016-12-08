@@ -3,10 +3,8 @@ const path = require('path');
 const { spawn, exec } = require('child-process-promise');
 const rmdir = require('rmdir');
 const chalk = require('chalk')
+const resolveBin = require('resolve-bin').sync
 const { appRoot, appPath, relativeAppPath, modulePath } = require('./config/paths')
-
-const bin = relativeAppPath('node_modules/.bin')
-
 
 const init = () => {
   return new Promise((resolve, reject) => {
@@ -73,7 +71,7 @@ const buildBrowser = builder('buildBrowser', (watch) => {
 
 
 const buildWebpack = builder('buildWebpack', (watch) => {
-  const cmd = [bin+'/webpack', '--config', modulePath('config/webpack.config.js')]
+  const cmd = [resolveBin('webpack'), '--config', modulePath('config/webpack.config.js')]
   if (watch) cmd.push('--watch')
   return cmd
 })
@@ -151,7 +149,7 @@ const startWebServer = {
     buildAll(true)
     return delay(100).then(() => {
       return waitForFileToExist(relativeAppPath('build/server/index.js'), () => {
-        spawn('nodemon', [relativeAppPath('build/server'), '--watch', relativeAppPath('build/server')], {stdio: 'inherit'})
+        spawn(resolveBin('nodemon'), [relativeAppPath('build/server'), '--watch', relativeAppPath('build/server')], {stdio: 'inherit'})
       })
     })
   },
@@ -168,7 +166,7 @@ const _runTests = (watch) => {
   args.push('--recursive')
   args.push(relativeAppPath('build/test'))
   if (watch) args.unshift('--watch')
-  return spawn(bin+'/mocha', args, {stdio: 'inherit'})
+  return spawn(resolveBin('mocha'), args, {stdio: 'inherit'})
 }
 
 const runTests = {

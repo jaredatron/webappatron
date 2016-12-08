@@ -48,6 +48,7 @@
     "omit-tilde-webpack-plugin": "^2.0.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
+    "resolve-bin": "^0.4.0",
     "rmdir": "^1.2.0",
     "sass": "^0.5.0",
     "sass-loader": "^4.0.2",
