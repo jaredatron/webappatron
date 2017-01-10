@@ -39,7 +39,7 @@ defineCommand('start', command => {
     command.option('-B, --dont-build', 'just start the server, dont also build')
   }
   command.action( command => {
-    startWebServer().catch(fail)
+    startWebServer(command).catch(fail)
   })
 })
 

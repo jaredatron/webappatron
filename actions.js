@@ -145,12 +145,14 @@ const startWebServer = {
   production: () => {
     return spawn('node', [relativeAppPath('build/server')], {stdio: 'inherit'})
   },
-  development: () => {
+  development: ({dontBuild}) => {
+    const start = () =>
+      spawn(resolveBin('nodemon'), [relativeAppPath('build/server'), '--watch', relativeAppPath('build/server')], {stdio: 'inherit'})
+
+    if (dontBuild) return start()
     buildAll(true)
     return delay(100).then(() => {
-      return waitForFileToExist(relativeAppPath('build/server/index.js'), () => {
-        spawn(resolveBin('nodemon'), [relativeAppPath('build/server'), '--watch', relativeAppPath('build/server')], {stdio: 'inherit'})
-      })
+      return waitForFileToExist(relativeAppPath('build/server/index.js'), start)
     })
   },
   test: () => {
