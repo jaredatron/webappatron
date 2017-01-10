@@ -120,6 +120,7 @@ const buildAll = ({
       buildServer(watch),
       buildBrowser(watch),
       buildTest(watch),
+      buildWebpack(watch),
     ])
   },
 })[process.env.NODE_ENV]
@@ -177,7 +178,7 @@ const runTests = {
     process.exit(1)
   },
   development: _runTests,
-  test: () => buildAll(false).then(() => _test(false))
+  test: () => buildAll(false).then(() => _runTests(false))
 }[process.env.NODE_ENV]
 
 
