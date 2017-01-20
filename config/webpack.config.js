@@ -32,8 +32,12 @@ module.exports = {
   output: {
     path: appPath('build/public'),
     pathinfo: true,
-    filename: "browser.js",
-    publicPath: '/'
+    publicPath: '/',
+    filename: (
+      process.env.NODE_ENV === 'production'
+        ? "browser-[hash].js"
+        : "browser.js"
+    ),
   },
   resolve: {
     alias: {
