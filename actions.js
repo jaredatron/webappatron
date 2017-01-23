@@ -1,6 +1,6 @@
 const fs = require('fs-extra');
 const path = require('path');
-const { spawn, exec } = require('child-process-promise');
+const { spawn } = require('child-process-promise');
 const rmdir = require('rmdir');
 const chalk = require('chalk')
 const resolveBin = require('resolve-bin').sync
@@ -161,14 +161,12 @@ const startWebServer = {
   }
 }[process.env.NODE_ENV]
 
-const _runTests = (watch) => {
+const _runTests = (args) => {
+  args.unshift(modulePath('config/mocha-setup.js'))
   const setupFilePath = appPath('buid/test/setup.js')
-  const args = []
-  args.push(modulePath('config/mocha-setup.js'))
   if (fs.existsSync(setupFilePath)) args.push(setupFilePath)
   args.push('--recursive')
   args.push(relativeAppPath('build/test'))
-  if (watch) args.unshift('--watch')
   return spawn(resolveBin('mocha'), args, {stdio: 'inherit'})
 }
 

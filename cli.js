@@ -13,7 +13,7 @@ cli.version(package.version)
 cli.usage('command [options]')
 
 const defineCommand = (name, block) => {
-  block.call(null, cli.command(name))
+  block(cli.command(name))
 }
 
 defineCommand('init', command => {
@@ -44,12 +44,10 @@ defineCommand('start', command => {
 })
 
 defineCommand('test', command => {
+  command._allowUnknownOption = true
   command.description('test the app')
-  if (development) {
-    command.option('-w, --watch', 'watch files and automaticall rebuild')
-  }
   command.action( command => {
-    runTests(command.watch).catch(fail)
+    runTests(process.argv.slice(3)).catch(fail)
   })
 })
 
