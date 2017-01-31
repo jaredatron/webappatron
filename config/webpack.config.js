@@ -86,7 +86,9 @@ module.exports = {
         exclude: /\/favicon.ico$/,
         loader: 'file',
         query: {
-          name: '[name].[ext]'
+          name: process.env.NODE_ENV === 'production'
+            ? '[name]-[hash].[ext]'
+            : '[name].[ext]'
         }
       },
       // A special case for favicon.ico to place it into build root directory.
@@ -95,7 +97,9 @@ module.exports = {
         include: [appPath('browser')],
         loader: 'file',
         query: {
-          name: 'favicon.ico?'
+          name: process.env.NODE_ENV === 'production'
+            ? 'favicon-[hash].ico?'
+            : 'favicon.ico?'
         }
       },
       // "url" loader works just like "file" loader but it also embeds
@@ -105,7 +109,9 @@ module.exports = {
         loader: 'url',
         query: {
           limit: 10000,
-          name: 'static/[name].[ext]'
+          name: process.env.NODE_ENV === 'production'
+            ? 'static/[name]-[hash].[ext]'
+            : 'static/[name].[ext]'
         }
       },
       {
@@ -145,7 +151,11 @@ module.exports = {
     // new webpack.optimize.OccurrenceOrderPlugin(),
     // // Try to dedupe duplicated modules, if any:
     // new webpack.optimize.DedupePlugin(),
-    new ExtractTextPlugin('browser.css')
+    new ExtractTextPlugin(
+      process.env.NODE_ENV === 'production'
+        ? "browser-[hash].css"
+        : "browser.css"
+    )
   ]
 };
 
